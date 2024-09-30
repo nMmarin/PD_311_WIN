@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Clock
 {
-	class Alarm:IComparable
+	internal class Alarm:IComparable, IEquatable<Alarm>
 	{
 		string Filename { get; set; }
 		DateTime alarmTime;
@@ -23,7 +23,7 @@ namespace Clock
 		public Alarm(DateTime alarmTime, string filename)
 		{
 			AlarmTime = alarmTime;
-			if (filename == null) throw new Exception("Выберите звековой файл");
+			if (filename == null) throw new Exception("Выберите звуковой файл");
 			Filename = filename;
 		}
 		public override string ToString()
@@ -34,5 +34,9 @@ namespace Clock
 		{
 			return AlarmTime.CompareTo((other as Alarm).AlarmTime);
 		}
+		public bool Equals(Alarm other)
+        {
+			return this.alarmTime.Equals(other.AlarmTime);
+        }
 	}
 }
